@@ -16,19 +16,24 @@ export const QueryCheck: FC = memo(() => {
   // const result = useQuery("users", fetchUsers);
   // console.log(result);
 
-  const { data, isLoading } = useQuery("users", fetchUsers);
-  console.log(data);
-  console.log(isLoading);
+  const { data, error, isError, isLoading } = useQuery("users", fetchUsers);
 
   return (
     <>
       <p>Fetchユーザ一覧</p>
-      <div>
-        {data.map((user) => (
-          <div key={user.id}>{user.name}</div>
-        ))}
-      </div>
-      <button onClick={onClickHome}>to home</button>
+      {isError && <span>Error: {error.message}</span>}
+      {isLoading ? (
+        <span>Loading...</span>
+      ) : (
+        <>
+          <div>
+            {data.map((user) => (
+              <div key={user.id}>{user.name}</div>
+            ))}
+          </div>
+          <button onClick={onClickHome}>to home</button>
+        </>
+      )}
     </>
   );
 });
