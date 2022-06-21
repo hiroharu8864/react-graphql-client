@@ -1,16 +1,11 @@
 import { FC, memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevTools } from "react-query-devtools";
+import { useQuery } from "react-query";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      refetchOnWindowFocus: false
-    }
-  }
-});
+const fetchUsers = async () => {
+  const resonse = await fetch("https://jsonplaceholder.typicode.com/users");
+  return resonse.json();
+};
 
 export const QueryCheck: FC = memo(() => {
   const navigate = useNavigate();
@@ -18,13 +13,22 @@ export const QueryCheck: FC = memo(() => {
     navigate("/");
   }, [navigate]);
 
+  // const result = useQuery("users", fetchUsers);
+  // console.log(result);
+
+  const { data, isLoading } = useQuery("users", fetchUsers);
+  console.log(data);
+  console.log(isLoading);
+
   return (
     <>
-      <p>This is QueryCheck Page</p>
+      <p>Fetchユーザ一覧</p>
+      <div>
+        {data.map((user) => (
+          <div key={user.id}>{user.name}</div>
+        ))}
+      </div>
       <button onClick={onClickHome}>to home</button>
     </>
-    // <QueryClientProvider client={queryClient}>
-    //   <ReactQueryDevTools initialIsOpen={false} />
-    // </QueryClientProvider>
   );
 });
