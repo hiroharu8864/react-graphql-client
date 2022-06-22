@@ -21,7 +21,6 @@ export const QueryCheck: FC = memo(() => {
   return (
     <>
       <p>Fetchユーザ一覧</p>
-      {isError && <span>Error: {error.message}</span>}
       {isLoading ? (
         <span>Loading...</span>
       ) : (
@@ -34,6 +33,7 @@ export const QueryCheck: FC = memo(() => {
           <button onClick={onClickHome}>to home</button>
         </>
       )}
+      {isError && <span>Error: {error.message}</span>}
     </>
   );
 });
