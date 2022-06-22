@@ -6,6 +6,9 @@ export const Home: FC = memo(() => {
   const onClickQueryCheck = useCallback(() => {
     navigate("/query");
   }, [navigate]);
+  const onClickQueryCheckGraphQL = useCallback(() => {
+    navigate("/queryGraphQL");
+  }, [navigate]);
   const onClickFetchCheck = useCallback(() => {
     navigate("/fetch");
   }, [navigate]);
@@ -13,6 +16,11 @@ export const Home: FC = memo(() => {
     <>
       <p>This is Home Page</p>
       <button onClick={onClickQueryCheck}>to react query check</button>
+      <br />
+      <br />
+      <button onClick={onClickQueryCheckGraphQL}>
+        to react graphQL query check
+      </button>
       <br />
       <br />
       <button onClick={onClickFetchCheck}>to react fetch check</button>
